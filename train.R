@@ -29,7 +29,12 @@ table(cm$truth, cm$estimate) |>
   kableExtra::kable() |>
   cat(file = 'cm.html')
 
+metrics <- yardstick::metric_set(yardstick::accuracy,
+                                 yardstick::kap)
+
 cm |>
-  yardstick::accuracy(truth = truth, estimate = estimate) |>
+  yardstick::metrics(truth = truth, estimate = estimate) |>
+  tidyr::pivot_wider(-.estimator, names_from = ".metric",
+                     values_from = ".estimate") |>
   jsonlite::toJSON() |>
   jsonlite::write_json(path = 'metrics.json')
