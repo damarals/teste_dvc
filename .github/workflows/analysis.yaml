@@ -11,7 +11,7 @@ jobs:
         uses: r-lib/actions/setup-r@master
 
       - name: setup dependencies
-        uses: |
+        run: |
           R -e 'install.packages("renv")'
           R -e 'renv::restore()'
 
