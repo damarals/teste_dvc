@@ -1,12 +1,12 @@
 stages:
   train:
-  cmd: R -e 'train.R'
-  deps:
-    - train.R
-  outs:
-    - plot.png
-    - cm.html
-    - metrics.json
+    cmd: R -e 'train.R'
+    deps:
+      - train.R
+    outs:
+      - plot.png
+      - cm.html
+      - metrics.json
   metrics:
     - metrics.json:
       cache: false
