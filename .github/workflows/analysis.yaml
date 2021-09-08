@@ -22,7 +22,6 @@ jobs:
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          R -e 'renv::run("train.R")'
           dvc repro
 
           git fetch --prune
