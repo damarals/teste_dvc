@@ -12,14 +12,14 @@ jobs:
 
       - name: setup dependencies
         uses: |
-          R -e "install.packages('renv')"
-          R -e "renv::restore()"
+          R -e 'install.packages("renv")'
+          R -e 'renv::restore()'
 
       - name: run analysis
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          R -e "renv::run('train.R')"
+          R -e 'renv::run("train.R")'
           dvc repro
 
           git fetch --prune
