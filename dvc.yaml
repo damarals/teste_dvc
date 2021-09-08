@@ -1,6 +1,6 @@
 stages:
   train:
-    cmd: R -e 'train.R'
+    cmd: R -e 'renv::run("train.R")'
     deps:
       - train.R
     outs:
