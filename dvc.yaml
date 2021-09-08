@@ -6,7 +6,6 @@ stages:
     outs:
       - plot.png
       - cm.html
-      - metrics.json
-  metrics:
-    - metrics.json:
-      cache: false
+    metrics:
+      - metrics.json:
+          cache: false
