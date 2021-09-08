@@ -30,11 +30,10 @@ table(cm$truth, cm$estimate) |>
   cat(file = 'cm.html')
 
 metrics <- yardstick::metric_set(yardstick::accuracy,
-                                 yardstick::kap)
+                                 yardstick::f_meas)
 
 cm |>
-  yardstick::metrics(truth = truth, estimate = estimate) |>
+  metrics(truth = truth, estimate = estimate) |>
   tidyr::pivot_wider(-.estimator, names_from = ".metric",
                      values_from = ".estimate") |>
-  jsonlite::toJSON() |>
   jsonlite::write_json(path = 'metrics.json')
