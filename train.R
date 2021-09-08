@@ -1,4 +1,5 @@
-da_rec <- recipes::recipe(Species ~ Sepal.Length, data = iris)
+da_rec <- recipes::recipe(Species ~ Sepal.Length,
+                          data = iris)
 
 nnet_spec <- parsnip::mlp() |>
   parsnip::set_engine("nnet") |>
