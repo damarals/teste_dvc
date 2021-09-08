@@ -2,32 +2,32 @@ name: farmers
 on: [push]
 jobs:
   run:
-  runs-on: [ubuntu-latest]
-  container: docker://dvcorg/cml:latest
-  steps:
-    - uses: actions/checkout@v2
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml:latest
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: setup r
-      uses: r-lib/actions/setup-r@master
+      - name: setup r
+        uses: r-lib/actions/setup-r@master
 
-    - name: setup dependencies
-      uses: |
-        R -e "install.packages('renv')"
-        R -e "renv::restore()"
+      - name: setup dependencies
+        uses: |
+          R -e "install.packages('renv')"
+          R -e "renv::restore()"
 
-    - name: run analysis
-      env:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        R -e "renv::run('train.R')"
-        dvc repro
+      - name: run analysis
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          R -e "renv::run('train.R')"
+          dvc repro
 
-        git fetch --prune
-        dvc metrics diff --show-md master > report.md
+          git fetch --prune
+          dvc metrics diff --show-md master > report.md
 
-        # Add figure to the report
-        cml-publish plot.png --md >> report.md
-        # Add table
-        cat cm.html >> report.md
+          # Add figure to the report
+          cml-publish plot.png --md >> report.md
+          # Add table
+          cat cm.html >> report.md
 
-        cml-send-comment report.md
+          cml-send-comment report.md
