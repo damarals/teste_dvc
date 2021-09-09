@@ -36,4 +36,6 @@ cm |>
   metrics(truth = truth, estimate = estimate) |>
   tidyr::pivot_wider(-.estimator, names_from = ".metric",
                      values_from = ".estimate") |>
-  jsonlite::write_json(path = 'metrics.json')
+  jsonlite::toJSON() |> jsonlite::fromJSON() |>
+  jsonlite::unbox() |> jsonlite::toJSON() |>
+  write('metrics.json')

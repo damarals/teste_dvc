@@ -31,5 +31,4 @@ jobs:
           cml-publish plot.png --md >> report.md
           # Add table
           cat cm.html >> report.md
-
           cml-send-comment report.md
